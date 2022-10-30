@@ -10,6 +10,7 @@ export const TodoSLice = createSlice({
   initialState,
   reducers: {
     addTodo: (state, action) => {
+      console.log(action);
       state.arr.push({
         id: Date.now(),
         active: false,
@@ -26,7 +27,10 @@ export const TodoSLice = createSlice({
     },
 
     storageTodo: (state, action) => {
-      localStorage.setItem("todo", JSON.stringify(state.arr))
+      console.log(action.payload);
+      state.arr = action.payload;
+      state.activeArr = action.payload
+      // localStorage.setItem("todo", JSON.stringify(state.arr))
     },
 
     removeTodo: (state, action) => {
@@ -37,6 +41,7 @@ export const TodoSLice = createSlice({
       state.activeArr = state.activeArr.filter((item) => {
         return item.id !== action.payload;
       });
+      localStorage.setItem("todo", JSON.stringify(state.arr))
     },
     throwLine: (state, { payload }) => {
       for (let i = 0; i < state.arr.length; i++) {

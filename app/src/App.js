@@ -13,12 +13,20 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    localStorage.getItem("todo")
     if (localStorage.getItem("todo")) {
       const storeList = JSON.parse(localStorage.getItem("todo"));
       setLocalArr(storeList);
     }
-    dispatch(storageTodo());
+    console.log(localStorage.getItem("todo"));
+    // dispatch(storageTodo());
   }, [dispatch]);
+
+  useEffect(()=>{
+    if(localArr!=[]) {
+      console.log(localArr);
+      dispatch(storageTodo(localArr))};
+  },[localArr]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
